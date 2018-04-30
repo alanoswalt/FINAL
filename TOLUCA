@@ -1,0 +1,153 @@
+Building configuration...
+
+Current configuration : 2549 bytes
+!
+version 15.1
+service timestamps log datetime msec
+no service timestamps debug datetime msec
+service password-encryption
+!
+hostname R-TOLUCA
+!
+!
+!
+enable secret 5 $1$mERr$hx5rVt7rPNoS4wqbXKX7m0
+!
+!
+!
+!
+!
+!
+no ip cef
+no ipv6 cef
+!
+!
+!
+username cisco password 7 0822455D0A16
+!
+!
+license udi pid CISCO1941/K9 sn FTX1524P3DD
+!
+!
+!
+!
+!
+!
+!
+!
+!
+ip ssh version 2
+ip domain-name redes2.com
+!
+!
+spanning-tree mode pvst
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 172.27.14.29 255.255.255.252
+!
+interface GigabitEthernet0/0
+ no ip address
+ ip nat inside
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/0.31
+ encapsulation dot1Q 31
+ ip address 172.27.8.254 255.255.255.0
+ ip helper-address 172.27.3.1
+ ip nat inside
+!
+interface GigabitEthernet0/0.32
+ encapsulation dot1Q 32
+ ip address 172.27.9.254 255.255.255.0
+ ip helper-address 172.27.3.1
+ ip nat inside
+!
+interface GigabitEthernet0/0.33
+ encapsulation dot1Q 33
+ ip address 172.27.10.254 255.255.255.0
+ ip helper-address 172.27.3.1
+ ip nat inside
+!
+interface GigabitEthernet0/0.34
+ encapsulation dot1Q 34
+ ip address 172.27.11.254 255.255.255.0
+ ip helper-address 172.27.3.1
+ ip nat inside
+!
+interface GigabitEthernet0/0.50
+ encapsulation dot1Q 50
+ ip address 172.27.14.2 255.255.255.252
+ ip nat inside
+!
+interface GigabitEthernet0/1
+ ip address 10.40.72.214 255.255.255.0
+ ip nat outside
+ duplex auto
+ speed auto
+!
+interface Serial0/0/0
+ ip address 172.27.14.5 255.255.255.252
+ ip nat inside
+ clock rate 2000000
+!
+interface Serial0/0/1
+ ip address 172.27.14.18 255.255.255.252
+ ip nat inside
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+router rip
+ version 2
+ passive-interface GigabitEthernet0/1
+ network 172.27.0.0
+ default-information originate
+ no auto-summary
+!
+ip nat inside source list 1 interface GigabitEthernet0/1 overload
+ip nat inside source static tcp 172.27.7.1 80 10.40.72.214 80 
+ip classless
+ip route 0.0.0.0 0.0.0.0 10.40.72.254 
+!
+ip flow-export version 9
+!
+!
+access-list 1 deny host 172.27.7.1
+access-list 1 permit 172.27.0.0 0.0.15.255
+access-list 2 permit 172.27.12.0 0.0.0.127
+access-list 2 permit 172.27.0.0 0.0.0.255
+access-list 2 permit 172.27.8.0 0.0.0.255
+access-list 2 permit 172.27.4.0 0.0.0.255
+access-list 2 permit 172.27.3.0 0.0.0.255
+access-list 2 permit 172.27.7.0 0.0.0.255
+!
+banner motd ^CBIENVENIDO AL ROUTER DE TOLUCA, ACCESO RESTRINGIDO^C
+!
+!
+!
+!
+logging trap debugging
+logging 172.27.7.1
+line con 0
+ login local
+!
+line aux 0
+!
+line vty 0 4
+ access-class 2 in
+ login local
+line vty 5 15
+ access-class 2 in
+ login local
+!
+!
+ntp server 10.40.72.254 key 0
+!
+end
