@@ -1,0 +1,134 @@
+Building configuration...
+
+Current configuration : 1988 bytes
+!
+version 15.1
+service timestamps log datetime msec
+no service timestamps debug datetime msec
+service password-encryption
+!
+hostname R-QUERETARO
+!
+!
+!
+enable secret 5 $1$mERr$hx5rVt7rPNoS4wqbXKX7m0
+!
+!
+!
+!
+!
+!
+ip cef
+no ipv6 cef
+!
+!
+!
+username cisco password 7 0822455D0A16
+!
+!
+license udi pid CISCO1941/K9 sn FTX15248CHI
+!
+!
+!
+!
+!
+!
+!
+!
+!
+ip ssh version 2
+ip domain-name redes2.com
+!
+!
+spanning-tree mode pvst
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 172.27.14.25 255.255.255.252
+!
+interface GigabitEthernet0/0
+ no ip address
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/0.21
+ encapsulation dot1Q 21
+ ip address 172.27.0.254 255.255.255.0
+ ip helper-address 172.27.3.1
+!
+interface GigabitEthernet0/0.22
+ encapsulation dot1Q 22
+ ip address 172.27.1.254 255.255.255.0
+ ip helper-address 172.27.3.1
+!
+interface GigabitEthernet0/0.23
+ encapsulation dot1Q 23
+ ip address 172.27.2.254 255.255.255.0
+ ip helper-address 172.27.3.1
+!
+interface GigabitEthernet0/0.24
+ encapsulation dot1Q 24
+ ip address 172.27.3.254 255.255.255.0
+ ip helper-address 172.27.3.1
+!
+interface GigabitEthernet0/1
+ no ip address
+ duplex auto
+ speed auto
+ shutdown
+!
+interface Serial0/0/0
+ ip address 172.27.14.13 255.255.255.252
+ clock rate 2000000
+!
+interface Serial0/0/1
+ ip address 172.27.14.10 255.255.255.252
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+router rip
+ version 2
+ network 172.27.0.0
+ no auto-summary
+!
+ip classless
+!
+ip flow-export version 9
+!
+!
+access-list 2 permit 172.27.12.0 0.0.0.127
+access-list 2 permit 172.27.0.0 0.0.0.255
+access-list 2 permit 172.27.8.0 0.0.0.255
+access-list 2 permit 172.27.4.0 0.0.0.255
+access-list 2 permit 172.27.3.0 0.0.0.255
+access-list 2 permit 172.27.7.0 0.0.0.255
+!
+banner motd ^CBIENVENIDO AL ROUTER DE QUERETARO, ACCESO RESTRINGIDO^C
+!
+!
+!
+!
+logging trap debugging
+logging 172.27.7.1
+line con 0
+ login local
+!
+line aux 0
+!
+line vty 0 4
+ access-class 2 in
+ login local
+line vty 5 15
+ access-class 2 in
+ login local
+!
+!
+ntp server 10.40.72.254 key 0
+!
+end
