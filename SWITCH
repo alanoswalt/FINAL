@@ -1,0 +1,193 @@
+Current configuration : 4712 bytes
+!
+version 12.2
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+service password-encryption
+!
+hostname SW-REDES2
+!
+enable secret 5 $1$mERr$hx5rVt7rPNoS4wqbXKX7m0
+!
+!
+!
+ip ssh version 2
+ip domain-name redes2.com
+!
+username cisco privilege 1 password 7 0822455D0A16
+!
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+!
+interface FastEthernet0/1
+ switchport access vlan 11
+ switchport mode access
+ switchport port-security maximum 3
+ switchport port-security mac-address sticky 
+ switchport port-security violation restrict 
+!
+interface FastEthernet0/2
+ switchport access vlan 12
+ switchport mode access
+ switchport port-security maximum 3
+ switchport port-security mac-address sticky 
+ switchport port-security violation restrict 
+!
+interface FastEthernet0/3
+ switchport access vlan 13
+ switchport mode access
+ switchport port-security maximum 3
+ switchport port-security mac-address sticky 
+ switchport port-security violation restrict 
+!
+interface FastEthernet0/4
+ switchport access vlan 14
+ switchport mode access
+ switchport port-security maximum 3
+ switchport port-security mac-address sticky 
+ switchport port-security violation restrict 
+!
+interface FastEthernet0/5
+ switchport access vlan 21
+ switchport mode access
+ switchport port-security maximum 3
+ switchport port-security mac-address sticky 
+ switchport port-security violation restrict 
+!
+interface FastEthernet0/6
+ switchport access vlan 22
+ switchport mode access
+ switchport port-security maximum 3
+ switchport port-security mac-address sticky 
+ switchport port-security violation restrict 
+!
+interface FastEthernet0/7
+ switchport access vlan 23
+ switchport mode access
+ switchport port-security maximum 3
+ switchport port-security mac-address sticky 
+ switchport port-security violation restrict 
+!
+interface FastEthernet0/8
+ switchport access vlan 24
+ switchport mode access
+ switchport port-security maximum 3
+ switchport port-security mac-address sticky 
+ switchport port-security violation restrict 
+!
+interface FastEthernet0/9
+ switchport access vlan 31
+ switchport mode access
+ switchport port-security maximum 3
+ switchport port-security mac-address sticky 
+ switchport port-security violation restrict 
+!
+interface FastEthernet0/10
+ switchport access vlan 32
+ switchport mode access
+ switchport port-security maximum 3
+ switchport port-security mac-address sticky 
+ switchport port-security violation restrict 
+!
+interface FastEthernet0/11
+ switchport access vlan 33
+ switchport mode access
+ switchport port-security maximum 3
+ switchport port-security mac-address sticky 
+ switchport port-security violation restrict 
+!
+interface FastEthernet0/12
+ switchport access vlan 34
+ switchport mode access
+ switchport port-security maximum 3
+ switchport port-security mac-address sticky 
+ switchport port-security violation restrict 
+!
+interface FastEthernet0/13
+ switchport access vlan 41
+ switchport mode access
+ switchport port-security maximum 3
+ switchport port-security mac-address sticky 
+ switchport port-security violation restrict 
+!
+interface FastEthernet0/14
+ switchport access vlan 42
+ switchport mode access
+ switchport port-security maximum 3
+ switchport port-security mac-address sticky 
+ switchport port-security violation restrict 
+!
+interface FastEthernet0/15
+ switchport access vlan 43
+ switchport mode access
+ switchport port-security maximum 3
+ switchport port-security mac-address sticky 
+ switchport port-security violation restrict 
+!
+interface FastEthernet0/16
+ switchport access vlan 44
+ switchport mode access
+ switchport port-security maximum 3
+ switchport port-security mac-address sticky 
+ switchport port-security violation restrict 
+!
+interface FastEthernet0/17
+ switchport mode trunk
+!
+interface FastEthernet0/18
+ switchport mode trunk
+!
+interface FastEthernet0/19
+ switchport mode trunk
+!
+interface FastEthernet0/20
+ switchport mode trunk
+!
+interface FastEthernet0/21
+!
+interface FastEthernet0/22
+!
+interface FastEthernet0/23
+!
+interface FastEthernet0/24
+!
+interface GigabitEthernet0/1
+!
+interface GigabitEthernet0/2
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+interface Vlan10
+ mac-address 00e0.b074.c701
+ ip address 172.27.14.37 255.255.255.252
+!
+ip default-gateway 172.27.14.38
+!
+banner motd ^CBIENVENIDO AL SWITCH, ACCESO RESTRINGIDO^C
+logging trap debugging
+logging 172.27.7.1
+!
+!
+!
+access-list 2 permit 172.27.12.0 0.0.0.127
+access-list 2 permit 172.27.0.0 0.0.0.255
+access-list 2 permit 172.27.8.0 0.0.0.255
+access-list 2 permit 172.27.4.0 0.0.0.255
+access-list 2 permit 172.27.3.0 0.0.0.255
+access-list 2 permit 172.27.7.0 0.0.0.255
+line con 0
+ login local
+!
+line vty 0 4
+ access-class 2 in
+ login local
+line vty 5 15
+ access-class 2 in
+ login local
+!
+!
+!
+end
